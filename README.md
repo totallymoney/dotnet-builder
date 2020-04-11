@@ -20,6 +20,7 @@ commit, tag the repo then push including the tag.
 
 ```bash
 $ git commit -am "Add new thing"
+$ git push
 $ git tag 3.1.1
 $ git push --tags
 ```
