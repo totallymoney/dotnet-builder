@@ -5,4 +5,4 @@ RUN apt-get update \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && curl -sL https://deb.nodesource.com/setup_17.x | bash - \
     && apt-get update \
-    && apt-get install -y --no-install-recommends zip unzip jq nodejs yarn openjdk-11-jdk
+    && apt-get install -y --no-install-recommends ssh zip unzip jq nodejs yarn openjdk-11-jdk
