@@ -1,9 +1,9 @@
 # dotnet-builder
 
-Docker image for .netcore >= 3.1 with nodejs, yarn, jq and more.
+Docker image for .netcore >= 8.0 with nodejs, yarn, jq and more.
 
 ```sh
-$ docker pull totallymoney/dotnet-builder:net6-node17
+$ docker pull totallymoney/dotnet-builder:net8-node20
 ```
 
 [dotnet-build docker Hub image page](https://hub.docker.com/repository/docker/totallymoney/dotnet-builder/general)
@@ -30,3 +30,24 @@ image named after the tag. i.e. `totallymoney/dotnet-builder:net6-node18`
 
 The build will soon be visible on the
 [builds page](https://hub.docker.com/repository/docker/totallymoney/dotnet-builder/builds).
+
+
+## Make a Multi-Arch Release
+
+The automatic docker-hub image builder will only build amd64 images. To build a multi arch release you will need to do that manually.
+
+On a mac M1 the following will do it:
+
+First you'll have to remove `openjdk-11-jdk` from the docker file. It's a very old version of openjdk, and not supported on arm.
+
+Now we'll need to create a container to build images within. I believe you need this for qemu to kick in and build the different archs. It's slow, but it works.
+
+```bash
+docker buildx create --name container --driver=docker-container
+```
+
+Then following will build a multiarch image, and push that change to docker-hub.
+
+```bash
+docker buildx build --platform linux/arm64,linux/amd64 --tag totallymoney/dotnet-builder-multiarch:net8-node20 --builder=container --push .
+```
