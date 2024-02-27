@@ -46,9 +46,8 @@ Now we'll need to create a container to build images within. I believe you need 
 docker buildx create --name container --driver=docker-container
 ```
 
-The following will build a multiarch, and push that change to docker-hub.
+Then following will build a multiarch image, and push that change to docker-hub.
 
 ```bash
-docker buildx create --name container --driver=docker-container
 docker buildx build --platform linux/arm64,linux/amd64 --tag totallymoney/dotnet-builder-multiarch:net8-node20 --builder=container --push .
 ```
